@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daiana Birmanova — Instructional Design Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #E91E8C;
+    --pink-light: #fce4f3;
+    --dark: #0f0f1a;
+    --mid: #2a2a3e;
+    --gray: #6b6b80;
+    --light: #f8f7fc;
+    --white: #ffffff;
+    --accent: #7B2FF7;
+    --accent-soft: #ede9fc;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15, 15, 26, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 16px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { font-family: 'DM Serif Display', serif; color: var(--white); font-size: 1.2rem; }
+  .nav-brand span { color: var(--pink); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(233,30,140,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -150px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(123,47,247,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 820px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(233,30,140,0.15);
+    border: 1px solid rgba(233,30,140,0.4);
+    color: var(--pink);
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero p {
+    font-size: 1.1rem; color: rgba(255,255,255,0.65);
+    max-width: 580px; line-height: 1.75; margin-bottom: 40px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--pink); color: var(--white);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+  }
+  .hero-cta:hover { background: #c91078; transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-val { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--white); }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* SECTIONS */
+  section { padding: 96px 48px; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    color: var(--dark); margin-bottom: 16px;
+  }
+  .section-sub { font-size: 1rem; color: var(--gray); max-width: 560px; line-height: 1.7; margin-bottom: 56px; }
+
+  /* APPROACH / ADDIE */
+  .approach-bg { background: var(--white); }
+  .addie-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  .addie-step {
+    padding: 28px 20px;
+    position: relative;
+  }
+  .addie-step:nth-child(1) { background: #0f0f1a; }
+  .addie-step:nth-child(2) { background: #1e1e38; }
+  .addie-step:nth-child(3) { background: #2a1840; }
+  .addie-step:nth-child(4) { background: #1e2545; }
+  .addie-step:nth-child(5) { background: #0d1f38; }
+  .addie-letter {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem; color: var(--pink); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .addie-word { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  .addie-desc { font-size: 0.82rem; color: rgba(255,255,255,0.72); line-height: 1.6; }
+
+  /* LESSON PLANS */
+  .plans-bg { background: var(--light); }
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .plan-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .plan-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .card-header {
+    padding: 28px 28px 20px;
+    border-bottom: 2px solid var(--light);
+    position: relative;
+  }
+  .card-number {
+    position: absolute; top: 20px; right: 24px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem; color: var(--pink-light); line-height: 1;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 4px 12px; border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .tag-middle-east { background: #fff3e0; color: #e65100; }
+  .tag-asia { background: #e8f5e9; color: #2e7d32; }
+  .tag-health { background: var(--accent-soft); color: var(--accent); }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--dark); margin-bottom: 6px; }
+  .card-meta { font-size: 0.8rem; color: var(--gray); }
+  .card-body { padding: 24px 28px; }
+  .card-objective {
+    font-size: 0.88rem; color: var(--dark); line-height: 1.65;
+    padding: 12px 16px; background: var(--light); border-radius: 8px;
+    border-left: 3px solid var(--pink);
+    margin-bottom: 20px;
+  }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light);
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-time {
+    font-size: 0.72rem; font-weight: 700; color: var(--pink);
+    min-width: 34px; padding-top: 1px;
+  }
+  .tl-phase { font-size: 0.82rem; color: var(--dark); font-weight: 500; }
+  .tl-detail { font-size: 0.77rem; color: var(--gray); margin-top: 2px; line-height: 1.5; }
+
+  /* DESIGN CHOICES */
+  .design-bg { background: var(--dark); }
+  .design-bg .section-title { color: var(--white); }
+  .design-bg .section-sub { color: rgba(255,255,255,0.5); }
+  .choices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .choice-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 28px;
+  }
+  .choice-icon { font-size: 1.8rem; margin-bottom: 14px; }
+  .choice-title { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .choice-text { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* BLOOM'S TAXONOMY */
+  .blooms-bg { background: var(--white); }
+  .blooms-visual {
+    display: flex; flex-direction: column; gap: 8px;
+    max-width: 640px;
+  }
+  .bloom-row {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .bloom-bar {
+    height: 48px; border-radius: 6px;
+    display: flex; align-items: center; padding: 0 20px;
+    font-size: 0.85rem; font-weight: 700; color: var(--white);
+    transition: width 0.6s ease;
+  }
+  .bloom-label-right { font-size: 0.8rem; color: var(--gray); white-space: nowrap; }
+
+  /* REFLECTION */
+  .reflection-bg { background: var(--light); }
+  .reflection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .reflection-col h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem; color: var(--dark);
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--pink);
+  }
+  .reflection-item {
+    display: flex; gap: 14px; margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .reflection-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--pink); flex-shrink: 0; margin-top: 7px;
+  }
+  .reflection-text { font-size: 0.88rem; color: var(--dark); line-height: 1.65; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 40px 48px;
+    font-size: 0.82rem;
+  }
+  footer a { color: var(--pink); text-decoration: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .hero { padding: 100px 20px 64px; }
+    .addie-grid { grid-template-columns: 1fr 1fr; }
+    .addie-step:nth-child(5) { grid-column: 1 / -1; }
+    .reflection-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Daiana<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#lessons">Lesson Plans</a></li>
+    <li><a href="#design">Design Choices</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Instructional Design Portfolio</div>
+    <h1>Designing learning that <em>sticks.</em></h1>
+    <p>I build structured, learner-centered experiences that combine behavioral science, cultural relevance, and hands-on application. This portfolio showcases my curriculum design work with HOKALI's Caliber Camp cooking program.</p>
+    <a class="hero-cta" href="#lessons">View Lesson Plans ↓</a>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">3</div>
+        <div class="stat-label">Lesson Plans</div>
+      </div>
+      <div>
+        <div class="stat-val">K–5</div>
+        <div class="stat-label">Learner Ages</div>
+      </div>
+      <div>
+        <div class="stat-val">ADDIE</div>
+        <div class="stat-label">Design Framework</div>
+      </div>
+      <div>
+        <div class="stat-val">3</div>
+        <div class="stat-label">Cultures Explored</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach-bg" id="approach">
+  <div class="section-inner">
+    <div class="section-label">Design Framework</div>
+    <h2 class="section-title">Every lesson follows ADDIE</h2>
+    <p class="section-sub">Each session in this curriculum was designed using the ADDIE model — ensuring every lesson is grounded in learner needs, clearly structured, and continuously evaluated.</p>
+    <div class="addie-grid">
+      <div class="addie-step">
+        <div class="addie-letter">A</div>
+        <div class="addie-word">Analyze</div>
+        <div class="addie-desc">Identified learner age (2nd–5th grade), group size (~20), allergy restrictions, prior knowledge, and school-site constraints before designing any content.</div>
+      </div>
+      <div class="addie-step">
+        <div class="addie-letter">D</div>
+        <div class="addie-word">Design</div>
+        <div class="addie-desc">Mapped learning objectives to Bloom's Taxonomy levels. Structured each session in 7 phases with clear timing and purpose for each activity.</div>
+      </div>
+      <div class="addie-step">
+        <div class="addie-letter">D</div>
+        <div class="addie-word">Develop</div>
+        <div class="addie-desc">Created all materials: instructor scripts, ingredient shopping lists, station setup guides, and age-appropriate vocabulary for each cultural theme.</div>
+      </div>
+      <div class="addie-step">
+        <div class="addie-letter">I</div>
+        <div class="addie-word">Implement</div>
+        <div class="addie-desc">Led instructor-led delivery across 2nd, 4th, and 5th grade classes simultaneously, adapting in real-time to student engagement and pace.</div>
+      </div>
+      <div class="addie-step">
+        <div class="addie-letter">E</div>
+        <div class="addie-word">Evaluate</div>
+        <div class="addie-desc">Used Reflection & Cleanup segments as structured debrief, gathering feedback and noting areas to improve for subsequent sessions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSON PLANS -->
+<section class="plans-bg" id="lessons">
+  <div class="section-inner">
+    <div class="section-label">Curriculum Samples</div>
+    <h2 class="section-title">Three lesson plans, one through-line</h2>
+    <p class="section-sub">Each session builds on the last — introducing new cultures, new techniques, and increasing learner independence as the program progresses.</p>
+    <div class="plans-grid">
+
+      <!-- PLAN 1: Pitas -->
+      <div class="plan-card">
+        <div class="card-header">
+          <div class="card-number">06</div>
+          <div class="card-tag tag-middle-east">Middle Eastern</div>
+          <div class="card-title">Flying Saucers: Middle Eastern Pitas</div>
+          <div class="card-meta">June 23 &nbsp;·&nbsp; 77 minutes &nbsp;·&nbsp; Grades 2, 4, 5</div>
+        </div>
+        <div class="card-body">
+          <div class="card-objective">
+            <strong>Learning Objective:</strong> Students will identify Middle Eastern flavor profiles and assemble a culturally-inspired snack using spreading, filling, and folding techniques.
+          </div>
+          <div class="timeline">
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Welcome & Setup</div>
+                <div class="tl-detail">Establish context, set expectations, prepare stations</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">10 min</div>
+              <div>
+                <div class="tl-phase">Warm-Up: Flavor Match</div>
+                <div class="tl-detail">Students identify ingredients in hummus/baba ganoush (prior knowledge activation)</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">12 min</div>
+              <div>
+                <div class="tl-phase">Direct Instruction</div>
+                <div class="tl-detail">Instructor models spreading, filling, and folding technique</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">15 min</div>
+              <div>
+                <div class="tl-phase">Guided Practice</div>
+                <div class="tl-detail">Students practice with instructor scaffolding</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">18 min</div>
+              <div>
+                <div class="tl-phase">Application & Cooking</div>
+                <div class="tl-detail">Groups assemble and plate independently; focus on flavor pairing</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">8 min</div>
+              <div>
+                <div class="tl-phase">Presentation & Tasting</div>
+                <div class="tl-detail">Groups share, discuss, evaluate their work</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Reflection & Cleanup</div>
+                <div class="tl-detail">Structured debrief on teamwork and flavor exploration</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAN 2: Spring Rolls -->
+      <div class="plan-card">
+        <div class="card-header">
+          <div class="card-number">07</div>
+          <div class="card-tag tag-asia">Vietnamese</div>
+          <div class="card-title">Vietnamese Spring Rolls</div>
+          <div class="card-meta">June 24 &nbsp;·&nbsp; 83 minutes &nbsp;·&nbsp; Grades 2, 4, 5</div>
+        </div>
+        <div class="card-body">
+          <div class="card-objective">
+            <strong>Learning Objective:</strong> Students will identify fresh herbs by sight and smell, demonstrate careful rice paper handling, and roll tightly filled spring rolls using a layering sequence.
+          </div>
+          <div class="timeline">
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Welcome & Setup</div>
+                <div class="tl-detail">Station setup with rice paper, fillings, and shallow water bowls</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">10 min</div>
+              <div>
+                <div class="tl-phase">Warm-Up: Herb Hunt</div>
+                <div class="tl-detail">Sensory identification of mint, cilantro, and basil (multisensory engagement)</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">15 min</div>
+              <div>
+                <div class="tl-phase">Direct Instruction</div>
+                <div class="tl-detail">Modeling rice paper softening, layering sequence, tight rolling technique</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">18 min</div>
+              <div>
+                <div class="tl-phase">Guided Practice</div>
+                <div class="tl-detail">Students practice wrapping with close instructor monitoring for rice paper handling</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">18 min</div>
+              <div>
+                <div class="tl-phase">Application & Cooking</div>
+                <div class="tl-detail">Independent group assembly; emphasis on neatness and teamwork</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">8 min</div>
+              <div>
+                <div class="tl-phase">Presentation & Tasting</div>
+                <div class="tl-detail">Groups present, taste with soy-lime dipping sauce, discuss favorites</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Reflection & Cleanup</div>
+                <div class="tl-detail">Debrief on wrapping technique improvement and teamwork dynamics</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAN 3: Parfait -->
+      <div class="plan-card">
+        <div class="card-header">
+          <div class="card-number">08</div>
+          <div class="card-tag tag-health">Food Safety Focus</div>
+          <div class="card-title">Yogurt Parfait: Kitchen Safety</div>
+          <div class="card-meta">June 25 &nbsp;·&nbsp; 80 minutes &nbsp;·&nbsp; Grades 2, 4, 5</div>
+        </div>
+        <div class="card-body">
+          <div class="card-objective">
+            <strong>Learning Objective:</strong> Students will recall and apply at least 3 kitchen safety rules, assemble a layered parfait independently, and evaluate their peers' hygiene and technique.
+          </div>
+          <div class="timeline">
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Welcome & Setup</div>
+                <div class="tl-detail">Allergy check, handwashing station setup, ingredient safety review</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Warm-Up: Safety Rules Review</div>
+                <div class="tl-detail">Group recall of kitchen safety rules; student-generated additions</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">15 min</div>
+              <div>
+                <div class="tl-phase">Direct Instruction</div>
+                <div class="tl-detail">Demonstrate safe food handling, hygiene rules, scooping and layering techniques</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">18 min</div>
+              <div>
+                <div class="tl-phase">Guided Practice (Pairs)</div>
+                <div class="tl-detail">Peer observation — pairs check each other's hygiene and technique</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">18 min</div>
+              <div>
+                <div class="tl-phase">Application & Cooking</div>
+                <div class="tl-detail">Small groups assemble full parfaits; creative layering encouraged</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">8 min</div>
+              <div>
+                <div class="tl-phase">Presentation & Tasting</div>
+                <div class="tl-detail">Groups explain layer choices and rationale; peer tasting</div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-time">7 min</div>
+              <div>
+                <div class="tl-phase">Reflection & Cleanup</div>
+                <div class="tl-detail">Debrief on food safety habits; station cleanup following protocol</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN CHOICES -->
+<section class="design-bg" id="design">
+  <div class="section-inner">
+    <div class="section-label" style="color: rgba(233,30,140,0.8)">Design Rationale</div>
+    <h2 class="section-title">Why these choices?</h2>
+    <p class="section-sub">Every structural and content decision was intentional. Here's the design thinking behind this curriculum.</p>
+    <div class="choices-grid">
+      <div class="choice-card">
+        <div class="choice-icon">🌍</div>
+        <div class="choice-title">Cultural Sequencing</div>
+        <div class="choice-text">Sessions were ordered to build cultural exposure progressively — Middle Eastern → Southeast Asian → universal food safety — increasing novelty while maintaining learner confidence.</div>
+      </div>
+      <div class="choice-card">
+        <div class="choice-icon">🔁</div>
+        <div class="choice-title">Consistent 7-Phase Structure</div>
+        <div class="choice-text">Every lesson uses the same structure. This reduces cognitive load, creates predictability for learners, and allows instructors to focus on content delivery rather than managing transitions.</div>
+      </div>
+      <div class="choice-card">
+        <div class="choice-icon">🤝</div>
+        <div class="choice-title">Scaffolded Independence</div>
+        <div class="choice-text">Each session moves from instructor modeling → guided practice → independent application, following Vygotsky's Zone of Proximal Development. Students are never thrown in cold.</div>
+      </div>
+      <div class="choice-card">
+        <div class="choice-icon">🧠</div>
+        <div class="choice-title">Multisensory Warm-Ups</div>
+        <div class="choice-text">Flavor Match and Herb Hunt activate prior knowledge through taste and smell — not just visual/verbal cues — improving retention and engagement for kinesthetic learners.</div>
+      </div>
+      <div class="choice-card">
+        <div class="choice-icon">⚠️</div>
+        <div class="choice-title">Safety-First Allergy Design</div>
+        <div class="choice-text">Session 8 was redesigned to be fully dairy-free and nut-free, with allergy checks built into the welcome phase. Dietary constraints were integrated into materials lists with label-verification notes.</div>
+      </div>
+      <div class="choice-card">
+        <div class="choice-icon">📊</div>
+        <div class="choice-title">Built-in Evaluation</div>
+        <div class="choice-text">Presentation & Tasting and Reflection segments function as formative assessment checkpoints, allowing real-time evaluation of learning objectives without formal testing disrupting the experience.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOOM'S TAXONOMY -->
+<section class="blooms-bg">
+  <div class="section-inner">
+    <div class="section-label">Cognitive Design</div>
+    <h2 class="section-title">Bloom's Taxonomy in action</h2>
+    <p class="section-sub">This curriculum targets multiple levels of Bloom's Taxonomy simultaneously across the 7 phases of each session.</p>
+    <div class="blooms-visual">
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 100%; background: #E91E8C;">Create &nbsp;—&nbsp; Groups assemble, plate, and design their own creations</div>
+      </div>
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 88%; background: #c41577;">Evaluate &nbsp;—&nbsp; Presentation discussions and peer feedback</div>
+      </div>
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 76%; background: #9c0f5f;">Analyze &nbsp;—&nbsp; Flavor pairing decisions and technique analysis</div>
+      </div>
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 64%; background: #7B2FF7;">Apply &nbsp;—&nbsp; Guided practice with real ingredients and tools</div>
+      </div>
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 52%; background: #5a22c4;">Understand &nbsp;—&nbsp; Direct instruction and demonstration</div>
+      </div>
+      <div class="bloom-row">
+        <div class="bloom-bar" style="width: 40%; background: #3d1890;">Remember &nbsp;—&nbsp; Warm-up recall activities</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="reflection-bg" id="reflection">
+  <div class="section-inner">
+    <div class="section-label">Self-Evaluation</div>
+    <h2 class="section-title">What worked. What I'd change.</h2>
+    <p class="section-sub">Effective instructional designers evaluate their own work with the same rigor they apply to learner outcomes.</p>
+    <div class="reflection-grid">
+      <div class="reflection-col">
+        <h3>Strengths</h3>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">The 7-phase structure created strong session predictability — students knew what was coming, which reduced transition friction and increased time-on-task.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">Sensory warm-up activities (Flavor Match, Herb Hunt) generated the highest student engagement and vocabulary retention across all three sessions.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">Proactive allergy and dietary restriction planning in Session 8 prevented any safety incidents and built trust with school site coordinators.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">Cultural context framing (naming each dish's origin and significance) increased student curiosity and cross-cultural empathy beyond the cooking skills themselves.</div>
+        </div>
+      </div>
+      <div class="reflection-col">
+        <h3>What I'd Improve</h3>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">I would add a pre-session learner survey to capture individual dietary preferences and prior cooking experience, enabling better differentiation within each session.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">The Application phase (18 mins) was tight for groups that struggled during Guided Practice. A flexible buffer of 5 minutes could be embedded for differentiated pacing.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">I would develop a simple rubric for the Presentation segment so students can self-assess against clear criteria, adding a metacognitive layer to the evaluation.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-dot"></div>
+          <div class="reflection-text">Future sessions could include a visual recipe card students keep — extending learning beyond the classroom and reinforcing knowledge retention at home.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Daiana Birmanova &nbsp;·&nbsp; Instructional Design Portfolio &nbsp;·&nbsp; <a href="mailto:d.birmanova@uni.minerva.edu">d.birmanova@uni.minerva.edu</a></p>
+  <p style="margin-top: 8px; font-size: 0.75rem;">HOKALI | Caliber Camp Cooking Curriculum — 2024</p>
+</footer>
+
+</body>
+</html>
